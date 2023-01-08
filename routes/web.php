@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\AuthController;
  use App\Http\Controllers\IndexController;
  use App\Http\Controllers\DataController;
+ use App\Http\Controllers\CastController;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,3 +33,11 @@ use Illuminate\Support\Facades\Route;
 //  });
 
 route::get('/data-tables',[DataController::class,'Datatable'] );
+
+route::get('/cast/create',[CastController::class,'create'] );
+route::post('/cast',[CastController::class,'store']);
+route::get('/cast',[CastController::class,'index'] );
+route::get('/cast/{cast_id}',[CastController::class,'show'] );
+route::put('/cast/{cast_id}',[CastController::class,'update'] );
+route::get('/cast/{cast_id}/edit',[CastController::class,'edit'] );
+route::delete('/cast/{cast_id}',[CastController::class,'destroy'] );
