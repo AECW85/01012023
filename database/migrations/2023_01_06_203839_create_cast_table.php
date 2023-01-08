@@ -14,7 +14,7 @@ class CreateCastTable extends Migration
     public function up()
     {
         Schema::create('cast', function (Blueprint $table) {
-            $table->integer('id')->primary();
+            $table->integer('id')->autoIncrement();
             $table->string('nama',45);
             $table->integer('umur');
             $table->text('bio');
