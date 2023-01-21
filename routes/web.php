@@ -6,7 +6,11 @@ use Illuminate\Support\Facades\Route;
  use App\Http\Controllers\IndexController;
  use App\Http\Controllers\DataController;
  use App\Http\Controllers\CastController;
-
+ use App\Http\Controllers\FilmController;
+ use App\Http\Controllers\GenreController;
+ use App\Http\Controllers\GameController;
+ use App\Http\Controllers\PlatformController;
+ use App\Http\Controllers\KritikController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -34,10 +38,36 @@ use Illuminate\Support\Facades\Route;
 
 route::get('/data-tables',[DataController::class,'Datatable'] );
 
-route::get('/cast/create',[CastController::class,'create'] );
+Route::group(['middleware' => ['auth']], function () {
+
+    route::get('/cast/create',[CastController::class,'create'] );
 route::post('/cast',[CastController::class,'store']);
-route::get('/cast',[CastController::class,'index'] );
-route::get('/cast/{cast_id}',[CastController::class,'show'] );
 route::put('/cast/{cast_id}',[CastController::class,'update'] );
 route::get('/cast/{cast_id}/edit',[CastController::class,'edit'] );
 route::delete('/cast/{cast_id}',[CastController::class,'destroy'] );
+//route::get('/film/create',[FilmController::class,'create'] );
+route::get('/genre/create',[GenreController::class,'create'] );
+route::get('/genre',[GenreController::class,'index']);
+route::post('/genre',[GenreController::class,'store']);
+route::delete('/genre/{genre_id}',[GenreController::class,'destroy'] );
+route::get('/genre/{genre_id}/edit',[GenreController::class,'edit'] );
+route::put('/genre/{genre_id}',[GenreController::class,'update'] );
+route::post('/kritik/{film_id}',[KritikController::class,'store']);
+});
+
+
+route::get('/cast',[CastController::class,'index'] );
+route::get('/cast/{cast_id}',[CastController::class,'show'] );
+route::get('/genre',[GenreController::class,'index']);
+route::get('/genre/{genre_id}',[GenreController::class,'show'] );
+
+
+
+
+Route::resource('film', FilmController::class);
+Auth::routes();
+
+Route::resource('game', GameController::class);
+Route::resource('platform', PlatformController::class);
+
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

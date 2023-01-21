@@ -7,6 +7,11 @@ use App\Models\Cast;
 
 class CastController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index','show']);
+    }
     public function create()
     {
         return view('cast.add');

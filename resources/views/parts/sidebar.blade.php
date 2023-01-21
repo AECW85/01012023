@@ -5,7 +5,13 @@
           <img src="{{asset('/template/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          @auth
+          <a href="#" class="d-block">{{ Auth::user()->name }}</a>
+          @endauth
+          @guest
+          <a href="#" class="d-block">Belum login</a>
+          @endguest
+
         </div>
       </div>
 
@@ -26,7 +32,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          
+
           <li class="nav-item">
             <a href="/" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -52,6 +58,46 @@
               </li>
             </ul>
           </li>
+          <li class="nav-item">
+            <a href="/genre" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Genre
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="/film" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Film
+              </p>
+            </a>
+          </li>
+          @auth
+          <li class="nav-item bg-danger">
+            <a class="nav-link" href="{{ route('logout') }}"
+               onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();">
+                             {{-- {{ __('Logout') }} --}}
+              <p>
+                Logout
+              </p>
+            </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+              @csrf
+          </form>
+          </li>
+          @endauth
+          @guest
+          <li class="nav-item bg-primary">
+            <a href="/login" class="nav-link">
+              <p>
+                Login
+              </p>
+            </a>
+          </li>
+          @endguest
         </ul>
       </nav>
       <!-- /.sidebar-menu -->
